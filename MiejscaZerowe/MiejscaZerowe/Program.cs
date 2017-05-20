@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MiejscaZerowe
 {
@@ -29,7 +30,48 @@ namespace MiejscaZerowe
 
         public static string Calculate(string[] args)
         {
-            throw new NotImplementedException();
+
+            if ((args[0]=="0") && (args[1]=="0") && (args[2]=="0"))
+            {
+                return "Nieskończenie wiele miejsc zerowych.";
+            }
+
+            bool b = args.Contains("");
+
+            if (b == false)
+            {
+                double A = Convert.ToDouble(args[0]);
+                double B = Convert.ToDouble(args[1]);
+                double C = Convert.ToDouble(args[2]);
+                double delta;
+                double x1;
+                double x2;
+
+                delta = B * B - 4 * A * C;
+                if (delta > 0)
+                {
+                    x1 = Math.Round((-B + Math.Sqrt(delta)) / (2 * A) , 2);
+                    x2 = Math.Round((-B - Math.Sqrt(delta)) / (2 * A) , 2);
+                    string X1 = Convert.ToString(x1);
+                    string X2 = Convert.ToString(x2);
+                    return String.Concat("Dwa miejsca zerowe: x1 = ",X1,", x2 = ",X2);
+                }
+                else if (delta == 0)
+                {
+                    x1 = Math.Round(-B / (2 * A) , 2);
+                    string X1 = Convert.ToString(x1);
+                    return String.Concat("Jedno miejsce zerowe: x0 = ",X1);
+                }
+                else // delta < 0
+                {
+                    return "Brak miejsc zerowych.";
+                }
+            }
+            else
+            {
+                return "Niewłaściwa ilość współczynników.";
+            }
+
 
             // Napisz implementację metody 'Calculate' obliczającej miejsca zerowe funkcji kwadratowej
             // o podanych współczynnikach a, b oraz c.
