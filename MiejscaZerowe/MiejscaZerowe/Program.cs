@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 
 namespace MiejscaZerowe
@@ -28,13 +29,33 @@ namespace MiejscaZerowe
             Console.ReadKey();
         }
 
+
         public static string Calculate(string[] args)
         {
+            CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
+            //Console.WriteLine("CurrentCulture is now {0}.", CultureInfo.CurrentCulture.Name);
 
             if ((args[0]=="0") && (args[1]=="0") && (args[2]=="0"))
             {
                 return "Nieskończenie wiele miejsc zerowych.";
             }
+
+            if (args.Length > 3)
+            {
+                return "Podano więcej niż 3 współczynniki.";
+            }
+
+            if ((args[0] == "0") && (args[1] == "0") && (args[2] != "0"))
+            {
+                return "Brak miejsc zerowych.";
+            }
+
+            if ((args[0] == "0") && (args[1] != "0") && (args[2] == "0"))
+            {
+                return "Jedno miejsce zerowe: x0 = 0";
+            }
+
+
 
             bool b = args.Contains("");
 
@@ -50,17 +71,19 @@ namespace MiejscaZerowe
                 delta = B * B - 4 * A * C;
                 if (delta > 0)
                 {
-                    x1 = Math.Round((-B + Math.Sqrt(delta)) / (2 * A) , 2);
-                    x2 = Math.Round((-B - Math.Sqrt(delta)) / (2 * A) , 2);
+                    x1 = Math.Round((-B - Math.Sqrt(delta)) / (2 * A) , 2);
+                    x2 = Math.Round((-B + Math.Sqrt(delta)) / (2 * A) , 2);
                     string X1 = Convert.ToString(x1);
                     string X2 = Convert.ToString(x2);
-                    return String.Concat("Dwa miejsca zerowe: x1 = ",X1,", x2 = ",X2);
+                    string ret = String.Concat("Dwa miejsca zerowe: x1 = ", X1, ", x2 = ", X2);
+                    return ret;
                 }
                 else if (delta == 0)
                 {
                     x1 = Math.Round(-B / (2 * A) , 2);
                     string X1 = Convert.ToString(x1);
-                    return String.Concat("Jedno miejsce zerowe: x0 = ",X1);
+                    string ret = String.Concat("Jedno miejsce zerowe: x0 = ", X1);
+                    return ret;
                 }
                 else // delta < 0
                 {
@@ -69,7 +92,22 @@ namespace MiejscaZerowe
             }
             else
             {
-                return "Niewłaściwa ilość współczynników.";
+                if ((args[0] != String.Empty) && (args[1] != String.Empty) && (args[2] == String.Empty))
+                {
+                    return "Podano 2 zamiast 3 współczynników.";
+                }
+
+                if ((args[0] != String.Empty) && (args[1] == String.Empty) && (args[2] == String.Empty))
+                {
+                    return "Podano 1 zamiast 3 współczynników.";
+                }
+
+                if ((args[0] == String.Empty) && (args[1] == String.Empty) && (args[2] == String.Empty))
+                {
+                    return "Nie podano żadnych współczynników.";
+                }
+
+                return ("");
             }
 
 
