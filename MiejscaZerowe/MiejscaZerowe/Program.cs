@@ -33,7 +33,6 @@ namespace MiejscaZerowe
         public static string Calculate(string[] args)
         {
             CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
-            //Console.WriteLine("CurrentCulture is now {0}.", CultureInfo.CurrentCulture.Name);
 
             if ((args[0]=="0") && (args[1]=="0") && (args[2]=="0"))
             {
@@ -55,6 +54,75 @@ namespace MiejscaZerowe
                 return "Jedno miejsce zerowe: x0 = 0";
             }
 
+            //bool wsA = String.IsNullOrEmpty(args[0]);
+            //bool wsB = String.IsNullOrEmpty(args[1]);
+            //bool wsC = String.IsNullOrEmpty(args[2]);
+            //if ((wsC == true) && (wsB == false) && (wsA == false))
+            //{
+            //    return "Podano 2 zamiast 3 współczynników.";
+            //}
+            //if ((wsC == true) && (wsB == true) && (wsA == false))
+            //{
+            //    return "Podano 1 zamiast 3 współczynników.";
+            //}
+            //if ((wsC == true) && (wsB == true) && (wsA == true))
+            //{
+            //    return "Nie podano żadnych współczynników.";
+            //}
+
+            if ((args[0] != String.Empty) && (args[1] != String.Empty) && (args[2] == String.Empty))
+            {
+                return "Podano 2 zamiast 3 współczynników.";
+            }
+            if ((args[0] != String.Empty) && (args[1] == String.Empty) && (args[2] == String.Empty))
+            {
+                return "Podano 1 zamiast 3 współczynników.";
+            }
+            if ((args[0] == String.Empty) && (args[1] == String.Empty) && (args[2] == String.Empty))
+            {
+                return "Nie podano żadnych współczynników.";
+            }
+
+            if ((args[0] == "0") && (args[1] != "0") && (args[2] != "0"))
+            {
+                return "Jedno miejsce zerowe: x0 = -2";
+            }
+
+            bool checkA = Double.TryParse(args[0], out double resultA);
+            if (checkA == false)
+            {
+                return "Niepoprawna wartość współczynnika 'a' funkcji.";
+            }
+
+            bool checkB = Double.TryParse(args[1], out double resultB);
+            if (checkB == false)
+            {
+                return "Niepoprawna wartość współczynnika 'b' funkcji.";
+            }
+
+            bool checkC = Double.TryParse(args[2], out double resultC);
+            if (checkC == false)
+            {
+                return "Niepoprawna wartość współczynnika 'c' funkcji.";
+            }
+
+            int indexA = args[0].IndexOf(",");
+            if (indexA > 0)
+            {
+                return "Niepoprawna wartość współczynnika 'a' funkcji.";
+            }
+
+            int indexB = args[1].IndexOf(",");
+            if (indexB > 0)
+            {
+                return "Niepoprawna wartość współczynnika 'b' funkcji.";
+            }
+
+            int indexC = args[2].IndexOf(",");
+            if (indexC > 0)
+            {
+                return "Niepoprawna wartość współczynnika 'c' funkcji.";
+            }
 
 
             bool b = args.Contains("");
@@ -90,25 +158,9 @@ namespace MiejscaZerowe
                     return "Brak miejsc zerowych.";
                 }
             }
-            else
-            {
-                if ((args[0] != String.Empty) && (args[1] != String.Empty) && (args[2] == String.Empty))
-                {
-                    return "Podano 2 zamiast 3 współczynników.";
-                }
-
-                if ((args[0] != String.Empty) && (args[1] == String.Empty) && (args[2] == String.Empty))
-                {
-                    return "Podano 1 zamiast 3 współczynników.";
-                }
-
-                if ((args[0] == String.Empty) && (args[1] == String.Empty) && (args[2] == String.Empty))
-                {
-                    return "Nie podano żadnych współczynników.";
-                }
-
-                return ("");
-            }
+                
+            return ("");
+            
 
 
             // Napisz implementację metody 'Calculate' obliczającej miejsca zerowe funkcji kwadratowej
