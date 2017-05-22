@@ -34,6 +34,11 @@ namespace MiejscaZerowe
         {
             CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
 
+            if (args.Length == 0)
+            {
+                return "Nie podano żadnych współczynników.";
+            }
+
             if ((args[0]=="0") && (args[1]=="0") && (args[2]=="0"))
             {
                 return "Nieskończenie wiele miejsc zerowych.";
@@ -54,34 +59,47 @@ namespace MiejscaZerowe
                 return "Jedno miejsce zerowe: x0 = 0";
             }
 
-            //bool wsA = String.IsNullOrEmpty(args[0]);
-            //bool wsB = String.IsNullOrEmpty(args[1]);
-            //bool wsC = String.IsNullOrEmpty(args[2]);
-            //if ((wsC == true) && (wsB == false) && (wsA == false))
-            //{
-            //    return "Podano 2 zamiast 3 współczynników.";
-            //}
-            //if ((wsC == true) && (wsB == true) && (wsA == false))
-            //{
-            //    return "Podano 1 zamiast 3 współczynników.";
-            //}
-            //if ((wsC == true) && (wsB == true) && (wsA == true))
-            //{
-            //    return "Nie podano żadnych współczynników.";
-            //}
-
-            if ((args[0] != String.Empty) && (args[1] != String.Empty) && (args[2] == String.Empty))
-            {
-                return "Podano 2 zamiast 3 współczynników.";
-            }
-            if ((args[0] != String.Empty) && (args[1] == String.Empty) && (args[2] == String.Empty))
+            if (args.Length == 1)
             {
                 return "Podano 1 zamiast 3 współczynników.";
             }
-            if ((args[0] == String.Empty) && (args[1] == String.Empty) && (args[2] == String.Empty))
+
+            if (args.Length == 2)
+            {
+                return "Podano 2 zamiast 3 współczynników.";
+            }
+
+            
+            /*bool wsA = String.IsNullOrEmpty(args[0]);
+            bool wsB = String.IsNullOrEmpty(args[1]);
+            bool wsC = String.IsNullOrEmpty(args[2]);
+            if ((wsC == true) && (wsB == false) && (wsA == false))
+            {
+                return "Podano 2 zamiast 3 współczynników.";
+            }
+            if ((wsC == true) && (wsB == true) && (wsA == false))
+            {
+                return "Podano 1 zamiast 3 współczynników.";
+            }
+            if ((wsC == true) && (wsB == true) && (wsA == true))
             {
                 return "Nie podano żadnych współczynników.";
             }
+            */
+
+            /*if (args[0] != String.Empty && args[1] != String.Empty && args[2] == String.Empty)
+            {
+                return "Podano 2 zamiast 3 współczynników.";
+            }
+            if (args[0] != String.Empty && args[1] == String.Empty && args[2] == String.Empty)
+            {
+                return "Podano 1 zamiast 3 współczynników.";
+            }
+            if (args[0] == String.Empty && args[1] == String.Empty && args[2] == String.Empty)
+            {
+                return "Nie podano żadnych współczynników.";
+            }
+            */
 
             if ((args[0] == "0") && (args[1] != "0") && (args[2] != "0"))
             {
