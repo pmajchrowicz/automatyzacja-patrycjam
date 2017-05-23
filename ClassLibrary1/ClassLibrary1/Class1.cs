@@ -17,27 +17,27 @@ namespace ClassLibrary1
             liczba2 = zmienna2;
         }
 
-        public int dodawanie()
+        public int Dodawanie()
         {
             return (liczba1 + liczba2);
         }
 
-        public int odejmowanie()
+        public int Odejmowanie()
         {
             return (liczba1 - liczba2);
         }
 
-        public int mnozenie()
+        public int Mnozenie()
         {
             return (liczba1 * liczba2);
         }
 
-        public double dzielenie()
+        public double Dzielenie()
         {
             return (liczba1 / liczba2);
         }
-
-
+        
+        
         // var c = new Calc(10,20);
         // var suma = c.Add();
     }
