@@ -19,6 +19,11 @@ namespace GoogleTesting
             _driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
         }
 
+        public void Dispose()
+        {
+            _driver.Quit();
+        }
+
         [Fact]
         public void  Hello_test()
         {
