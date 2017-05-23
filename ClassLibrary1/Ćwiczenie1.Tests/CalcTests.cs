@@ -28,39 +28,24 @@ namespace Ćwiczenie1.Tests
         [Fact]   
         public void Odejmowanie_zwraca_roznice_dwoch_liczb()
         {
-            // arrange
             var calculator = new Calc(20, 15);
-
-            // act
             var result = calculator.Odejmowanie();
-
-            // assert
             Assert.Equal(5, result);
         }
 
         [Fact]
         public void Mnozenie_zwraca_iloczyn_dwoch_liczb()
         {
-            // arrange
             var calculator = new Calc(2, 5);
-
-            // act
             var result = calculator.Mnozenie();
-
-            // assert
             Assert.Equal(10, result);
         }
 
         [Fact]
         public void Dzielenie_zwraca_iloraz_dwoch_liczb()
         {
-            // arrange
             var calculator = new Calc(20, 5);
-
-            // act
             var result = calculator.Dzielenie();
-
-            // assert
             Assert.Equal(4, result);
         }
     }
