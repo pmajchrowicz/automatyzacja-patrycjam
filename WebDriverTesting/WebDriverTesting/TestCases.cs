@@ -110,13 +110,16 @@ namespace WebDriverTesting
             waitForElementPresent(By.ClassName("ab-sign-out"),5);
             var sign_out_class = "ab-sign-out";
             _driver.FindElementByClassName(sign_out_class).Click();
-            
 
-            _driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
-            var post = _driver.FindElementByLinkText(expected_title);
-            var post_url = post.GetAttribute("href");
 
-            Assert.Equal(permalink,post_url);
+            //_driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
+            //var post = _driver.FindElementByLinkText(expected_title);
+            //var post_url = post.GetAttribute("href");
+            //Assert.Equal(permalink, post_url);
+
+            _driver.Navigate().GoToUrl(permalink);
+            var founded_title = _driver.FindElementByClassName("entry-title").Text;
+            Assert.Equal(expected_title, founded_title);
 
         }
 
