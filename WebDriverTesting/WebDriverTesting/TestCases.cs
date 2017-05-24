@@ -13,7 +13,7 @@ using Xunit;
 
 namespace WebDriverTesting
 {
-    public class TestCases //: IDisposable
+    public class TestCases : IDisposable
     {
         private FirefoxDriver _driver;
 
@@ -88,7 +88,7 @@ namespace WebDriverTesting
             var title_id = "title-prompt-text";
             var title = _driver.FindElementById(title_id);
             title.Click();
-            title.SendKeys("Notka_Patrycja");
+            title.SendKeys("Notka_Patrycja_13_57");
 
             var pole_tekstowe = "wp-editor-area";
             var notka = _driver.FindElementByClassName(pole_tekstowe);
@@ -99,18 +99,21 @@ namespace WebDriverTesting
             var publish = _driver.FindElementById(publish_id);
             publish.Click();
 
-            /*var avatar_class = "avatar avatar-32";
-            _driver.FindElementByClassName(avatar_class).Click();
+            var avatar_id = "wp-admin-bar-my-account";
+            var avatar = _driver.FindElementById(avatar_id);
+            avatar.Click();
 
             var sign_out_class = "ab-sign-out";
-            _driver.FindElementByClassName(sign_out_class);
-            */
+            _driver.FindElementByClassName(sign_out_class).Click();
+            
 
             //_driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
             //ReadOnlyCollection<IWebElement> posts = _driver.FindElementsByClassName("post-title");
             //IWebElement secondPost = posts[1];
             //string secondNoteTitle = secondPost.FindElement(By.TagName("a")).Text;
             //Assert.Equal("Vivamus aliquam feugiat", secondNoteTitle);
+
+            Thread.Sleep(15000);
         }
 
     }
