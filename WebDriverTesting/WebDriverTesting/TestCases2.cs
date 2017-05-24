@@ -10,7 +10,7 @@ using Xunit;
 
 namespace WebDriverTesting
 {
-    public class TestCases2 :IDisposable
+    public class TestCases2 : IDisposable
     {
         public readonly string expected_title;
         public static string ExampleContent = "abc";
@@ -142,7 +142,7 @@ namespace WebDriverTesting
             waitForElementPresent(By.Id("sample-permalink"), 10);
             return _driver.FindElementByXPath("//span[@id='sample-permalink']/a").GetAttribute("href");
             
-    }
+        }
 
         internal static void GoTo()
         {
