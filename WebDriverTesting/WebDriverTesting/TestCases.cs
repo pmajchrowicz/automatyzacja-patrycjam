@@ -64,7 +64,7 @@ namespace WebDriverTesting
             wait.Until(ExpectedConditions.ElementToBeClickable(by));
         }
 
-        [Fact]
+        //[Fact]
         public void Widocznosc_stworzonej_notki_na_blogu()
         {
             _driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/wp-admin/");
