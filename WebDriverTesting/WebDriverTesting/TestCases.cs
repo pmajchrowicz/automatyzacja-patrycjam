@@ -1,22 +1,25 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace WebDriverTesting
 {
-    public class TestCases : IDisposable
+    public class TestCases //: IDisposable
     {
-        private ChromeDriver _driver;
+        private FirefoxDriver _driver;
 
         public TestCases()
         {
-            _driver = new ChromeDriver();
+            _driver = new FirefoxDriver();
             _driver.Manage()
                 .Timeouts()
                 .ImplicitWait = TimeSpan.FromSeconds(5);
@@ -36,7 +39,7 @@ namespace WebDriverTesting
             Assert.Equal("Vivamus aliquam feugiat",firstNoteTitle);
         } */
 
-        [Fact]
+        /*[Fact]
         public void Second_note_should_be_Vivamus_aliguam_feugiat()
         {
             _driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
@@ -46,6 +49,68 @@ namespace WebDriverTesting
             IWebElement secondPost = posts[1];
             string secondNoteTitle = secondPost.FindElement(By.TagName("a")).Text;
             Assert.Equal("Vivamus aliquam feugiat", secondNoteTitle);
+        } */
+
+        private void waitForElementPresent(By by, int seconds)
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(seconds));
+            wait.Until(ExpectedConditions.ElementToBeClickable(by));
+        }
+
+        protected void WaitForElementPresent(IWebElement by, int seconds)
+        {
+            WebDriverWait wait = new WebDriverWait(_driver,
+                TimeSpan.FromSeconds(seconds));
+            wait.Until(ExpectedConditions.ElementToBeClickable(by));
+        }
+
+        [Fact]
+        public void Widocznosc_stworzonej_notki_na_blogu()
+        {
+            _driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/wp-admin/");
+            var username_id = "user_login";
+            var password_id = "user_pass";
+            var login_id = "wp-submit";
+            _driver.FindElementById(username_id).SendKeys("autotestdotnet@gmail.com");
+            _driver.FindElementById(password_id).SendKeys("codesprinters2016");
+            _driver.FindElementById(login_id).Click();
+
+            var menu_classname = "wp-menu-name";
+            var menu = _driver.FindElementsByClassName(menu_classname);
+            IWebElement posts = menu[2];
+            posts.Click();
+
+            var add_new_classname = "page-title-action";
+            waitForElementPresent(By.ClassName(add_new_classname), 10);
+            IWebElement new_post = _driver.FindElementByClassName(add_new_classname);
+            new_post.Click();
+
+            var title_id = "title-prompt-text";
+            var title = _driver.FindElementById(title_id);
+            title.Click();
+            title.SendKeys("Notka_Patrycja");
+
+            var pole_tekstowe = "wp-editor-area";
+            var notka = _driver.FindElementByClassName(pole_tekstowe);
+            notka.Click();
+            notka.SendKeys("aaabbbccc");
+
+            var publish_id = "publish";
+            var publish = _driver.FindElementById(publish_id);
+            publish.Click();
+
+            /*var avatar_class = "avatar avatar-32";
+            _driver.FindElementByClassName(avatar_class).Click();
+
+            var sign_out_class = "ab-sign-out";
+            _driver.FindElementByClassName(sign_out_class);
+            */
+
+            //_driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
+            //ReadOnlyCollection<IWebElement> posts = _driver.FindElementsByClassName("post-title");
+            //IWebElement secondPost = posts[1];
+            //string secondNoteTitle = secondPost.FindElement(By.TagName("a")).Text;
+            //Assert.Equal("Vivamus aliquam feugiat", secondNoteTitle);
         }
 
     }
