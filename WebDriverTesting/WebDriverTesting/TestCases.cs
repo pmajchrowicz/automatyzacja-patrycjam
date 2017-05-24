@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,9 @@ namespace WebDriverTesting
         public TestCases()
         {
             _driver = new ChromeDriver();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            _driver.Manage()
+                .Timeouts()
+                .ImplicitWait = TimeSpan.FromSeconds(5);
         }
 
         public void Dispose()
@@ -37,8 +40,10 @@ namespace WebDriverTesting
         public void Second_note_should_be_Vivamus_aliguam_feugiat()
         {
             _driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
-            var posts = _driver.FindElementsByClassName("post-title"); // szuka wszystkich class "post-title"
-            var secondPost = posts[1];  // drugi element ze znalezionych class "post-title"
+            //var posts = _driver.FindElementsByClassName("post-title"); // szuka wszystkich class "post-title"
+            ReadOnlyCollection<IWebElement> posts = _driver.FindElementsByClassName("post-title");
+            //var secondPost = posts[1];  // drugi element ze znalezionych class "post-title"
+            IWebElement secondPost = posts[1];
             string secondNoteTitle = secondPost.FindElement(By.TagName("a")).Text;
             Assert.Equal("Vivamus aliquam feugiat", secondNoteTitle);
         }
