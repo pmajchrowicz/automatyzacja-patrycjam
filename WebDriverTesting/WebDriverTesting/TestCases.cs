@@ -77,8 +77,8 @@ namespace WebDriverTesting
 
             var menu_classname = "wp-menu-name";
             var menu = _driver.FindElementsByClassName(menu_classname);
-            IWebElement posts = menu[2];
-            posts.Click();
+            IWebElement menu_posts = menu[2];
+            menu_posts.Click();
 
             var add_new_classname = "page-title-action";
             waitForElementPresent(By.ClassName(add_new_classname), 10);
@@ -88,7 +88,8 @@ namespace WebDriverTesting
             var title_id = "title-prompt-text";
             var title = _driver.FindElementById(title_id);
             title.Click();
-            title.SendKeys("Notka_Patrycja_13_57");
+            var expected_title = "Notka_Patrycja_" + Guid.NewGuid();
+            title.SendKeys(expected_title);
 
             var pole_tekstowe = "wp-editor-area";
             var notka = _driver.FindElementByClassName(pole_tekstowe);
@@ -99,21 +100,24 @@ namespace WebDriverTesting
             var publish = _driver.FindElementById(publish_id);
             publish.Click();
 
+            waitForElementPresent(By.Id("sample-permalink"), 10);
+            var permalink = _driver.FindElementByXPath("//span[@id='sample-permalink']/a").GetAttribute("href");
+
             var avatar_id = "wp-admin-bar-my-account";
             var avatar = _driver.FindElementById(avatar_id);
             avatar.Click();
 
+            waitForElementPresent(By.ClassName("ab-sign-out"),5);
             var sign_out_class = "ab-sign-out";
             _driver.FindElementByClassName(sign_out_class).Click();
             
 
-            //_driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
-            //ReadOnlyCollection<IWebElement> posts = _driver.FindElementsByClassName("post-title");
-            //IWebElement secondPost = posts[1];
-            //string secondNoteTitle = secondPost.FindElement(By.TagName("a")).Text;
-            //Assert.Equal("Vivamus aliquam feugiat", secondNoteTitle);
+            _driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
+            var post = _driver.FindElementByLinkText(expected_title);
+            var post_url = post.GetAttribute("href");
 
-            Thread.Sleep(15000);
+            Assert.Equal(permalink,post_url);
+
         }
 
     }
