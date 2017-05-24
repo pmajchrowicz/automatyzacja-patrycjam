@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,15 @@ namespace WebDriverTesting
         public void Dispose()
         {
             _driver.Quit();
-        }
+        } 
 
         [Fact]
-        public void FixMe()
+        public void First_note_should_be_Vivamus_aliguam_feugiat()
         {
-            Assert.Equal(true, false);
+            _driver.Navigate().GoToUrl("https://autotestdotnet.wordpress.com/");
+            IWebElement firstPost = _driver.FindElementByClassName("post-title");
+            string firstNoteTitle = firstPost.FindElement(By.TagName("a")).Text;
+            Assert.Equal("Vivamus aliquam feugiat",firstNoteTitle);
         }
     }
 }
