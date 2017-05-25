@@ -66,6 +66,8 @@ namespace WebDriverTesting
                 c.FindElement(By.TagName("p")).Text == exampleComment.Text
             );
 
+            Assert.NotNull(comment);
+
             //string author = ?;
             //string commentText = ?;
 
