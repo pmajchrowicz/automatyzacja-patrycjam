@@ -12,6 +12,7 @@ namespace WebDriverTesting
             Text = Guid.NewGuid().ToString() + Guid.NewGuid().ToString()
         };
 
+        private string ExampleReply = Guid.NewGuid().ToString();
 
         [Fact]
         public void When_user_is_not_logged_in_can_add_comment_on_second_note()
@@ -21,6 +22,18 @@ namespace WebDriverTesting
             MainPage.ShowNextPage();
             MainPage.LeaveComment(ExampleComment);
             MainPage.AssertCommentExist(ExampleComment);
+        }
+
+        [Fact]
+        public void Dodanie_komentarza_do_komentarza()
+        {
+            MainPage.GoTo();
+            MainPage.AssertNotLoggedIn();
+            MainPage.ShowNextPage();
+            MainPage.FindPostWithComment();
+            //MainPage.LeaveComment(ExampleComment);
+            //MainPage.Reply(ExampleReply);
+            //MainPage.AssertCommentExist(ExampleComment);
         }
 
         public void Dispose()

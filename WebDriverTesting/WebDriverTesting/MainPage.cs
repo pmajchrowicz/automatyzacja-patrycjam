@@ -54,6 +54,40 @@ namespace WebDriverTesting
             submitElement.Click();
         }
 
+        internal static void Reply(string exampleReply)
+        {
+            //kliknięcie w Comments
+
+            /*var replyFields = Browser.FindElements(By.ClassName("comment-reply-link"));
+            var replyField = replyFields[0];
+            replyField.Click(); */
+
+            //napisanie i zatwierdzenie komentarza
+        }
+
+        internal static void FindPostWithComment()
+        {
+            var comments = Browser.FindElements(By.ClassName("comments-link"));
+            var noteComment = comments[0];
+            var a = noteComment.FindElement(By.TagName("a"));
+            var text = a.Text;
+            var leaveComment = "Leave a comment";
+
+            do
+            {
+                ShowNextPage();
+                comments = Browser.FindElements(By.ClassName("comments-link"));
+                noteComment = comments[comments.Count()];
+                a = noteComment.FindElement(By.TagName("a"));
+                text = a.Text;
+            }
+            while (text == leaveComment);
+
+            //Reply();
+            
+        }
+
+        
         internal static void AssertCommentExist(Comment exampleComment)
         {
 
