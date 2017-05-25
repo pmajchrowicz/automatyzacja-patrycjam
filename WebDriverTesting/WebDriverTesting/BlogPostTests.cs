@@ -1,15 +1,17 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace WebDriverTesting
 {
-    public class BlogPostTests
+    public class BlogPostTests : IDisposable
     {
         private Comment ExampleComment = new Comment
         {
-            Name = "Arek",
+            Author = Guid.NewGuid().ToString(),
             Email = "some_mail@whatever.com",
-            Text = "hey! świetny tekst"
+            Text = Guid.NewGuid().ToString() + Guid.NewGuid().ToString()
         };
+
 
         [Fact]
         public void When_user_is_not_logged_in_can_add_comment_on_second_note()
@@ -19,6 +21,11 @@ namespace WebDriverTesting
             MainPage.ShowNextPage();
             MainPage.LeaveComment(ExampleComment);
             MainPage.AssertCommentExist(ExampleComment);
+        }
+
+        public void Dispose()
+        {
+            WebBrowser.Driver.Quit();
         }
     }
 }
