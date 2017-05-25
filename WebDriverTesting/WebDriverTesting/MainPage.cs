@@ -68,8 +68,6 @@ namespace WebDriverTesting
 
             Assert.NotNull(comment);
 
-            //string author = ?;
-            //string commentText = ?;
 
             //Assert.Equal(exampleComment.Author, author);
             //Assert.Equal(exampleComment.Text, commentText);
