@@ -1,6 +1,9 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
 using Xunit;
 
 namespace WebDriverTesting
@@ -53,7 +56,21 @@ namespace WebDriverTesting
 
         internal static void AssertCommentExist(Comment exampleComment)
         {
+
+            WaitForElementPresent(By.Id("comment"));
+            var comments = Browser.FindElements(By.ClassName("comment-body"));
             
+            var comment = comments.Single(c=>
+                c.FindElement(By.TagName("cite")).Text == exampleComment.Author
+                &&
+                c.FindElement(By.TagName("p")).Text == exampleComment.Text
+            );
+
+            //string author = ?;
+            //string commentText = ?;
+
+            //Assert.Equal(exampleComment.Author, author);
+            //Assert.Equal(exampleComment.Text, commentText);
         }
 
         protected static void WaitForElementPresent(By by)

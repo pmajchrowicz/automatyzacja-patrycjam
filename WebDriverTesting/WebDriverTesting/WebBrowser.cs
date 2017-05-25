@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium.Firefox;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using System;
 
 namespace WebDriverTesting
@@ -7,17 +9,17 @@ namespace WebDriverTesting
     {
         static WebBrowser()
         {
-            Driver = new FirefoxDriver();
-            /*Driver.Manage()
+            //Driver = new FirefoxDriver();
+            Driver = new ChromeDriver();
+            Driver.Manage()
                 .Window
                 .Size = new System.Drawing.Size(Configuration.BrowserWidth, Configuration.BrowserHeight);
-                */
             Driver.Manage()
                 .Timeouts()
                 .ImplicitWait = TimeSpan.FromSeconds(Configuration.ImplicitWait);
         }
 
-        internal static FirefoxDriver Driver;
+        internal static IWebDriver Driver;
         
     }
 }
